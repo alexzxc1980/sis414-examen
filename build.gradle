@@ -31,4 +31,8 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	doFirst {
+		def mockitoAgent = configurations.testRuntimeClasspath.files.find { it.name.startsWith('mockito-core-') }
+		jvmArgs "-javaagent:${mockitoAgent.absolutePath}"
+	}
 }
